@@ -5,15 +5,14 @@
     <div class="col-xs-5">
       <div class="row">
         <div class="col-xs-12">
-          <input placeholder="Search" type="text" class="form-control" ng-model="leftFilter"
-             style="width: 75%;margin-bottom: 10px;"/>
+          <input type="text" class="form-control" ng-model="leftFilter"/>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <select multiple ng-multiple="true" ng-model="leftSelected"
+          <select class="form-control" multiple ng-model="leftSelected"
               ng-options="r.data as r.data.value for r in leftListRows | filter:{$:leftFilter} track by r.data.value"
-              style="overflow: auto;" ng-style="listCss"></select>
+              style="overflow: auto;" ng-style="listCss"/>
         </div>
       </div>
     </div>
@@ -39,15 +38,14 @@
     <div class="col-xs-5">
       <div class="row">
         <div class="col-xs-12">
-          <input placeholder="Search" type="text" class="form-control" ng-model="rightFilter"
-                style="width: 75%;margin-bottom: 10px;"/>
+          <input type="text" class="form-control" ng-model="rightFilter"/>
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
-          <select multiple="multiple" ng-model="rightSelected"
+          <select class="form-control" multiple ng-model="rightSelected"
               ng-options="r.data as r.data.value for r in rightListRows | filter:{$:rightFilter} track by r.data.value"
-              style="overflow: auto;" ng-style="listCss"></select>
+              style="overflow: auto;" ng-style="listCss"/>
         </div>
       </div>
     </div>
