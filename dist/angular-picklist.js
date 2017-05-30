@@ -1,6 +1,6 @@
 /**
  * 
- * @version v1.0.0 - 2017-05-26
+ * @version v1.0.0 - 2017-05-30
  * @link https://github.com/IgorKvasn/angular-picklist
  * @author Igor Kvasnicka
  * @license CC BY 4.0 License,http://creativecommons.org/licenses/by/4.0/
@@ -20,7 +20,7 @@ angular.module('apicklist', []).factory('_', function () {
       restrict: 'E',
       transclude: true,
       replace: true,
-      template: '<div class="container-fluid" ng-cloak><div class="row"><div class="col-xs-5"><input placeholder="Search" type="text" class="form-control" ng-model="leftFilter" style="width:75%;margin-bottom:10px"/><select multiple ng-multiple="true" ng-model="leftSelected" ng-options="r.data.value for r in leftListRows track by r.data.key | filter:{data:leftFilter}" style="overflow:auto" ng-style="listCss"></select></div><div class="col-xs-1 v-center"><button style="display:block" type="button" class="btn btn-default" ng-click="moveRightSelected()"><span class="glyphicon glyphicon-forward"></span></button><button style="display:block" type="button" class="btn btn-default" ng-click="moveRightAll()" ng-show="showAllButtons"><span class="glyphicon glyphicon-fast-forward"></span></button><button style="display:block" type="button" class="btn btn-default" ng-click="moveLeftSelected()"><span class="glyphicon glyphicon-backward"></span></button><button style="display:block" type="button" class="btn btn-default" ng-click="moveLeftAll()" ng-show="showAllButtons"><span class="glyphicon glyphicon-fast-backward"></span></button></div><div class="col-xs-5"><input placeholder="Search" type="text" class="form-control" ng-model="rightFilter" style="width:75%;margin-bottom:10px"/><select multiple="multiple" ng-model="rightSelected" ng-options="r.data.value for r in rightListRows track by r.data.key | filter:{data:rightFilter}" style="overflow:auto" ng-style="listCss"></select></div></div></div>',
+      template: '<div class="container-fluid" ng-cloak>  <div class="row">    <!--unselected data-->    <div class="col-xs-5">      <div class="row">        <div class="col-xs-12">          <input placeholder="Search" type="text" class="form-control" ng-model="leftFilter"             style="width: 75%;margin-bottom: 10px;"/>        </div>      </div>      <div class="row">        <div class="col-xs-12">          <select multiple ng-multiple="true" ng-model="leftSelected"              ng-options="r.data as r.data.value for r in leftListRows | filter:{$:leftFilter} track by r.data.value"              style="overflow: auto;" ng-style="listCss"></select>        </div>      </div>    </div>    <!--navigation buttons-->    <div class="col-xs-1 v-center">        <button style="display: block;" type="button" class="btn btn-default" ng-click="moveRightSelected()">          <span class="glyphicon glyphicon-forward"></span>        </button>        <button style="display: block;" type="button" class="btn btn-default" ng-click="moveRightAll()" ng-show="showAllButtons">          <span class="glyphicon glyphicon-fast-forward"></span>        </button>        <button style="display: block;" type="button" class="btn btn-default" ng-click="moveLeftSelected()">          <span class="glyphicon glyphicon-backward"></span>        </button>        <button style="display: block;" type="button" class="btn btn-default" ng-click="moveLeftAll()" ng-show="showAllButtons">          <span class="glyphicon glyphicon-fast-backward"></span>        </button>    </div>    <!--selected data-->    <div class="col-xs-5">      <div class="row">        <div class="col-xs-12">          <input placeholder="Search" type="text" class="form-control" ng-model="rightFilter"                style="width: 75%;margin-bottom: 10px;"/>        </div>      </div>      <div class="row">        <div class="col-xs-12">          <select multiple="multiple" ng-model="rightSelected"              ng-options="r.data as r.data.value for r in rightListRows | filter:{$:rightFilter} track by r.data.value"              style="overflow: auto;" ng-style="listCss"></select>        </div>      </div>    </div>  </div></div>',
       scope: {
         leftListRowsModel: '=leftListRows',
         rightListRowsModel: '=rightListRows',
@@ -57,7 +57,7 @@ angular.module('apicklist', []).factory('_', function () {
         scope.moveRightSelected = function () {
           //convert selected rows into raw data
           var selectedData = scope.leftSelected.map(function (row) {
-              return row.data;
+              return row;
             });
           //add data to the right list
           scope.rightListRowsModel = scope.rightListRowsModel.concat(selectedData);
@@ -77,7 +77,7 @@ angular.module('apicklist', []).factory('_', function () {
         scope.moveLeftSelected = function () {
           //convert selected rows into raw data
           var selectedData = scope.rightSelected.map(function (row) {
-              return row.data;
+              return row;
             });
           //add data to the left list
           scope.leftListRowsModel = scope.leftListRowsModel.concat(selectedData);
@@ -121,6 +121,6 @@ angular.module('template/picklist.html', []).run([
   '$templateCache',
   function ($templateCache) {
     'use strict';
-    $templateCache.put('template/picklist.html', '<div class=container-fluid ng-cloak=""><div class=row><div class=col-xs-5><input placeholder=Search class=form-control ng-model=leftFilter style="width: 75%;margin-bottom: 10px"><select multiple ng-multiple=true ng-model=leftSelected ng-options="r.data.value for r in leftListRows track by r.data.key | filter:{data:leftFilter}" style="overflow: auto" ng-style=listCss></select></div><div class="col-xs-1 v-center"><button style="display: block" type=button class="btn btn-default" ng-click=moveRightSelected()><span class="glyphicon glyphicon-forward"></span></button> <button style="display: block" type=button class="btn btn-default" ng-click=moveRightAll() ng-show=showAllButtons><span class="glyphicon glyphicon-fast-forward"></span></button> <button style="display: block" type=button class="btn btn-default" ng-click=moveLeftSelected()><span class="glyphicon glyphicon-backward"></span></button> <button style="display: block" type=button class="btn btn-default" ng-click=moveLeftAll() ng-show=showAllButtons><span class="glyphicon glyphicon-fast-backward"></span></button></div><div class=col-xs-5><input placeholder=Search class=form-control ng-model=rightFilter style="width: 75%;margin-bottom: 10px"><select multiple ng-model=rightSelected ng-options="r.data.value for r in rightListRows track by r.data.key | filter:{data:rightFilter}" style="overflow: auto" ng-style=listCss></select></div></div></div>');
+    $templateCache.put('template/picklist.html', '<div class=container-fluid ng-cloak=""><div class=row><div class=col-xs-5><div class=row><div class=col-xs-12><input placeholder=Search class=form-control ng-model=leftFilter style="width: 75%;margin-bottom: 10px"></div></div><div class=row><div class=col-xs-12><select multiple ng-multiple=true ng-model=leftSelected ng-options="r.data as r.data.value for r in leftListRows | filter:{$:leftFilter} track by r.data.value" style="overflow: auto" ng-style=listCss></select></div></div></div><div class="col-xs-1 v-center"><button style="display: block" type=button class="btn btn-default" ng-click=moveRightSelected()><span class="glyphicon glyphicon-forward"></span></button> <button style="display: block" type=button class="btn btn-default" ng-click=moveRightAll() ng-show=showAllButtons><span class="glyphicon glyphicon-fast-forward"></span></button> <button style="display: block" type=button class="btn btn-default" ng-click=moveLeftSelected()><span class="glyphicon glyphicon-backward"></span></button> <button style="display: block" type=button class="btn btn-default" ng-click=moveLeftAll() ng-show=showAllButtons><span class="glyphicon glyphicon-fast-backward"></span></button></div><div class=col-xs-5><div class=row><div class=col-xs-12><input placeholder=Search class=form-control ng-model=rightFilter style="width: 75%;margin-bottom: 10px"></div></div><div class=row><div class=col-xs-12><select multiple ng-model=rightSelected ng-options="r.data as r.data.value for r in rightListRows | filter:{$:rightFilter} track by r.data.value" style="overflow: auto" ng-style=listCss></select></div></div></div></div></div>');
   }
 ]);

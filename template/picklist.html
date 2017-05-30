@@ -1,15 +1,21 @@
 <div class="container-fluid" ng-cloak>
-
-
   <div class="row">
 
     <!--unselected data-->
     <div class="col-xs-5">
-      <input placeholder="Search" type="text" class="form-control" ng-model="leftFilter"
+      <div class="row">
+        <div class="col-xs-12">
+          <input placeholder="Search" type="text" class="form-control" ng-model="leftFilter"
              style="width: 75%;margin-bottom: 10px;"/>
-      <select multiple ng-multiple="true" ng-model="leftSelected"
-              ng-options="r.data.value for r in leftListRows track by r.data.key | filter:{data:leftFilter}"
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <select multiple ng-multiple="true" ng-model="leftSelected"
+              ng-options="r.data as r.data.value for r in leftListRows | filter:{$:leftFilter} track by r.data.value"
               style="overflow: auto;" ng-style="listCss"></select>
+        </div>
+      </div>
     </div>
 
     <!--navigation buttons-->
@@ -31,13 +37,19 @@
 
     <!--selected data-->
     <div class="col-xs-5">
-      <input placeholder="Search" type="text" class="form-control" ng-model="rightFilter"
-             style="width: 75%;margin-bottom: 10px;"/>
-
-      <select multiple="multiple" ng-model="rightSelected"
-              ng-options="r.data.value for r in rightListRows track by r.data.key | filter:{data:rightFilter}"
+      <div class="row">
+        <div class="col-xs-12">
+          <input placeholder="Search" type="text" class="form-control" ng-model="rightFilter"
+                style="width: 75%;margin-bottom: 10px;"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <select multiple="multiple" ng-model="rightSelected"
+              ng-options="r.data as r.data.value for r in rightListRows | filter:{$:rightFilter} track by r.data.value"
               style="overflow: auto;" ng-style="listCss"></select>
-
+        </div>
+      </div>
     </div>
   </div>
 </div>
